@@ -29,13 +29,25 @@ class Object : public IUse
 		Object(string name)
 			{
 				this->name = name;
+				cout<<"Object constructor with param\n";
 			};
 	    Object() :  Object("something")
-	        {};
+	        {
+	            cout<<"Object constructor\n";
+	        };
 	};
 
 class Car : public Object
 	{
+	    public:
+	    Car(string n)
+	    {
+	        this->name = n;
+	    };
+	    Car() : Car("car")
+	    {
+	      cout<<"Car constructor\n";  
+	    };
 		void use() override
 			{
 				cout<<this->name<<" started\n";
@@ -49,6 +61,25 @@ class Car : public Object
 				cout<<"The "<<this->name<<" alarm went off\n";	
 			};
 	};
+
+class Fruct : public IUse
+    {
+        public:
+        string name;
+        Fruct(strint name)
+            {
+                this->name = name;  
+            };
+        Fruct() : Fruct("some fruct")
+            {
+                cout<<"Fruct constructor\n";
+            };
+        void eat() override
+        	{
+				cout<<this->name<<" is tasty\n";
+			};
+    };
+
 
 class User
 	{
@@ -77,10 +108,13 @@ void Mark_test(const Object &o)
 
 int main()
 	{
-		Object thing;
+		Object thing("thing");
 		Mark_test(thing);
-		Car audi;
+		Car audi("AUDI");
 		Mark_test(audi);
-		
+		User Ann;
+		Fruct apple("apple");
+		Ann.kick(audi);
+		Ann.eat(apple);
 		return 0;
 	};
