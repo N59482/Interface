@@ -3,30 +3,45 @@
 
 using namespace std;
 
-struct IUse
+struct Interface
 	{
 		virtual void use() = 0;
 	};
 
-struct Object1 : public IUse
+struct Car : public Interface
 	{
+		string name;
+		Car(string name)
+			{
+				this->name = name;
+			};
+		Car() : Car("some car")
+			{};
+
 		void use() override
-		{
-			cout<<"Object1 used\n";
-		};
+			{	
+				cout<<"Driving "<<this->name<<endl;
+			};	
 	};
 
-struct Object2 : public IUse
+struct Fruct : public Interface
 	{
+		string name;
+		Fruct(string name)
+			{
+				this->name = name;
+			};
+		Fruct() : Fruct("some fruct")
+			{};
 		void use() override
 		{
-			cout<<"Object2 used\n";
+			cout<<this->name<<" eaten\n";
 		};
 	};
 
 struct User
 	{
-		void kick(IUse & obj)
+		void useObj(Interface & obj)
 		{
 			obj.use();
 		}
@@ -35,11 +50,16 @@ struct User
 int main()
 	{
 		User mark;
-		Object1 o1;
-		Object2 o2;
+		Car audi("audi 100");
+		Car sc;
+		Fruct sf;
+		Fruct banana("banana");
 
-		mark.kick(o1);
-		mark.kick(o2);
+		mark.useObj(audi);
+		mark.useObj(sc);
+
+		mark.useObj(banana);
+		mark.useObj(sf);
 
 		return 0;
 	};
