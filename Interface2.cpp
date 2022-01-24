@@ -6,38 +6,88 @@ using namespace std;
 struct Interface
 	{
 		virtual void use() = 0;
+		virtual void kick() = 0;
 	};
 
-struct Car : public Interface
-	{
+struct Object : public Interface
+    {
+       	protected:
 		string name;
-		Car(string name)
+		public:
+		Object(string name)
 			{
+				// cout<<"constructor Object(string name)\n";
 				this->name = name;
 			};
-		Car() : Car("some car")
-			{};
+		Object() : Object("Something")
+			{
+				// cout<<"constructor Object()\n";
+			};
+    };
+
+struct Car : public Object
+	{
+		Car(string name) : Object(name)
+			{
+				// cout<<"constructor Car(string name)\n";
+			};
+		Car() : Object("some car")
+			{
+				// cout<<"constructor Car()\n";
+			};
 
 		void use() override
 			{	
 				cout<<"driving "<<this->name<<endl;
 			};	
+		void kick() override
+			{	
+				cout<<"*Alarm sound*\n";
+			};
 	};
 
-struct Fruct : public Interface
-	{
-		Fruct(string name)
+struct Audi : public Car
+    {
+		Audi(string name) : Car(name)
 			{
-				this->name = name;
+	// 			cout<<"constructor Audi(string name)\n";
 			};
-		Fruct() : Fruct("some fruct")
-			{};
+		Audi() : Car("Audi")
+			{
+	// 			cout<<"constructor Audi()\n";
+			};
+	};
+
+struct Fruct : public Object
+	{
+		Fruct(string name) : Object (name)
+			{
+				// cout<<"constructor Fruct(string name)\n";
+			};
+		Fruct() : Object("some fruct")
+			{
+				// cout<<"constructor Fruct()\n";
+			};
 		void use() override
-		{
-			cout<<"eat "<<this->name<<endl;
-		};
-		private:
-			string name;
+			{
+				cout<<"eat "<<this->name<<endl;
+			};
+		void kick() override
+			{	
+				cout<<this->name<<" flew far away\n";
+			};
+	};
+
+struct Banana : public Fruct
+	{
+		Banana(string name) : Fruct(name) 
+			{
+	// 			cout<<"constructor Banana(string name)\n";
+			};
+		Banana() : Fruct("Banana")
+			{
+	// 			cout<<"constructor Banana()\n";
+			};
 	};
 
 struct User
@@ -50,27 +100,35 @@ struct User
 		User() : User("someone")
 			{};
 		void useObj(Interface & obj)
-		{
-			cout<<this->name<<" ";
-			obj.use();
-		}
+			{
+				cout<<this->name<<" ";
+				obj.use();
+			}
+		void kick(Interface & obj)
+			{
+				obj.kick();
+			}
 	};
 
 int main()
 	{
 		User mark("Mark");
-		Car audi("audi 100");
-		Car sc;
-		Fruct banana("banana");
-		Fruct sf;
+		Audi a("a100");
+		Audi a1;
 
-		mark.useObj(audi);
-		mark.useObj(sc);
+		mark.useObj(a);
+		mark.useObj(a1);
 
-		mark.useObj(banana);
-		mark.useObj(sf);
+		Banana b("BIG banana");
+		Banana b1;
 
+		mark.useObj(b);
+		mark.useObj(b1);
 
-
+		User Kira("Kira");
+		Kira.kick(a);
+		Kira.kick(a1);
+		Kira.kick(b);
+		Kira.kick(b1);
 		return 0;
 	};
