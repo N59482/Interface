@@ -20,13 +20,12 @@ struct Car : public Interface
 
 		void use() override
 			{	
-				cout<<"Driving "<<this->name<<endl;
+				cout<<"driving "<<this->name<<endl;
 			};	
 	};
 
 struct Fruct : public Interface
 	{
-		string name;
 		Fruct(string name)
 			{
 				this->name = name;
@@ -35,31 +34,43 @@ struct Fruct : public Interface
 			{};
 		void use() override
 		{
-			cout<<this->name<<" eaten\n";
+			cout<<"eat "<<this->name<<endl;
 		};
+		private:
+			string name;
 	};
 
 struct User
 	{
+		string name;
+		User(string name)
+			{
+				this->name = name;
+			};
+		User() : User("someone")
+			{};
 		void useObj(Interface & obj)
 		{
+			cout<<this->name<<" ";
 			obj.use();
 		}
 	};
 
 int main()
 	{
-		User mark;
+		User mark("Mark");
 		Car audi("audi 100");
 		Car sc;
-		Fruct sf;
 		Fruct banana("banana");
+		Fruct sf;
 
 		mark.useObj(audi);
 		mark.useObj(sc);
 
 		mark.useObj(banana);
 		mark.useObj(sf);
+
+
 
 		return 0;
 	};
